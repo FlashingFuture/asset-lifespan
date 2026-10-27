@@ -48,6 +48,20 @@ docs/                  # spec/, decisions/, PROGRESS.md
 - **접근성과 모바일 우선.** WCAG 2.2 AA, 360px부터 전 기능 지원, 본문 18px 이상, 터치 대상 44px 이상.
 - **개인정보 보호.** 입력·결과는 서버로 보내지 않고, 분석은 쿠키 없는 익명 이벤트만 수집합니다.
 
+## v0 프로토타입 실행
+
+한 페이지 프로토타입(입력 7개 → 자산고갈연령, 잔액 그래프, 연도별 표)이 레포 루트에 단일 앱으로 있습니다. MVP 모노레포 전환 전까지 npm을 씁니다.
+
+```bash
+npm install
+npm run dev        # http://localhost:5173
+npm test           # 엔진·검증·표기 테스트
+npm run typecheck
+```
+
+- 계산 엔진: `src/engine/simulate.ts` (순수 함수, MVP에서 `packages/engine`으로 이동)
+- 가정값: `src/assumptions.json` (실질수익률 2%는 임시값)
+
 ## 개발 (예정)
 
 ```bash
