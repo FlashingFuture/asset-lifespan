@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import assumptionsFile from './assumptions.json'
 import { simulate, type Assumptions, type V0Input } from './engine/simulate'
+import { validate, type RawInput } from './validate'
 
 const assumptions: Assumptions = {
   realReturn: assumptionsFile.realReturn.value,
@@ -29,6 +30,10 @@ const fields: Field[] = [
   { key: 'monthlySpending', label: '월 생활비', unit: '만 원/월' },
 ]
 
+function toRaw(input: V0Input): RawInput {
+  return Object.fromEntries(Object.entries(input).map(([k, v]) => [k, String(v)])) as RawInput
+}
+
 function headline(depletionAge: number | null, currentAge: number) {
   if (depletionAge === null) return `${assumptions.targetAge}세 이후까지 버틸 수 있어요`
   if (depletionAge === currentAge) return `지금 계획으로는 ${depletionAge}세부터 부족해요`
@@ -36,8 +41,18 @@ function headline(depletionAge: number | null, currentAge: number) {
 }
 
 export default function App() {
+  const [raw, setRaw] = useState(toRaw(defaultInput))
+  // 오류가 있으면 결과는 마지막 유효값으로 유지
   const [input, setInput] = useState(defaultInput)
+  const { errors } = validate(raw)
   const result = simulate(input, assumptions)
+
+  const onChange = (key: keyof V0Input, value: string) => {
+    const next = { ...raw, [key]: value }
+    setRaw(next)
+    const checked = validate(next).input
+    if (checked) setInput(checked)
+  }
 
   return (
     <main className="page">
@@ -51,11 +66,13 @@ export default function App() {
               <input
                 type="number"
                 inputMode="numeric"
-                value={input[f.key]}
-                onChange={(e) => setInput({ ...input, [f.key]: Number(e.target.value) })}
+                value={raw[f.key]}
+                aria-invalid={errors[f.key] ? true : undefined}
+                onChange={(e) => onChange(f.key, e.target.value)}
               />
               <span className="unit">{f.unit}</span>
             </span>
+            {errors[f.key] && <span className="error">{errors[f.key]}</span>}
           </label>
         ))}
       </form>

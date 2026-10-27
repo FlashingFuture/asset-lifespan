@@ -52,3 +52,12 @@ body {
   color: #555;
   font-size: 16px;
 }
+
+.control input[aria-invalid] {
+  border-color: #c62828;
+}
+
+.error {
+  color: #c62828;
+  font-size: 16px;
+}
