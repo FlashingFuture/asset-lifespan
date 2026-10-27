@@ -70,3 +70,59 @@ body {
   color: #555;
   font-size: 16px;
 }
+
+.layout {
+  display: grid;
+  gap: 24px;
+}
+
+.result {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 340px 1fr;
+    align-items: start;
+  }
+}
+
+.years summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.years table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.years th,
+.years td {
+  padding: 6px 8px;
+  text-align: right;
+  border-bottom: 1px solid #e5e5e5;
+  white-space: nowrap;
+}
+
+.years th:first-child,
+.years td:first-child {
+  text-align: left;
+}
+
+.negative {
+  color: #c62828;
+}
+
+.unit-note {
+  color: #555;
+  font-size: 14px;
+}
