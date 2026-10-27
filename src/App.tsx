@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import assumptionsFile from './assumptions.json'
+import { BalanceChart } from './BalanceChart'
 import { simulate, type Assumptions, type V0Input } from './engine/simulate'
 import { validate, type RawInput } from './validate'
 
@@ -79,6 +80,7 @@ export default function App() {
 
       <section className="result">
         <p className="headline">{headline(result.depletionAge, input.currentAge)}</p>
+        <BalanceChart rows={result.rows} retireAge={input.retireAge} depletionAge={result.depletionAge} />
         <p className="notice">
           실질수익률 {assumptions.realReturn * 100}% 가정, 프로토타입 계산이에요. 투자 권유나 공식 연금 예상액이
           아니에요.
