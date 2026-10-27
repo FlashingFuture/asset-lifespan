@@ -2,4 +2,53 @@ body {
   margin: 0;
   font-family: system-ui, sans-serif;
   font-size: 18px;
+  color: #1a1a1a;
+  background: #fafafa;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.inputs {
+  display: grid;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 4px;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 12px;
+  font-size: 18px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+}
+
+.unit {
+  min-width: 5.5em;
+  color: #555;
+}
+
+.headline {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.notice {
+  color: #555;
+  font-size: 16px;
 }
