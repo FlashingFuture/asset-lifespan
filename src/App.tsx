@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import assumptionsFile from './assumptions.json'
 import { BalanceChart } from './BalanceChart'
+import { formatKorean } from './format'
 import { simulate, type Assumptions, type V0Input } from './engine/simulate'
 import { validate, type RawInput } from './validate'
 import { YearTable } from './YearTable'
@@ -20,16 +21,16 @@ const defaultInput: V0Input = {
   monthlySpending: 300,
 }
 
-type Field = { key: keyof V0Input; label: string; unit: string }
+type Field = { key: keyof V0Input; label: string; unit: string; money?: boolean }
 
 const fields: Field[] = [
   { key: 'currentAge', label: '현재 나이', unit: '세' },
   { key: 'retireAge', label: '퇴직 나이', unit: '세' },
-  { key: 'monthlyIncome', label: '퇴직 전 월소득(세후)', unit: '만 원/월' },
-  { key: 'monthlyPension', label: '국민연금 월액', unit: '만 원/월' },
+  { key: 'monthlyIncome', label: '퇴직 전 월소득(세후)', unit: '만 원/월', money: true },
+  { key: 'monthlyPension', label: '국민연금 월액', unit: '만 원/월', money: true },
   { key: 'pensionStartAge', label: '국민연금 수령 시작 나이', unit: '세' },
-  { key: 'financialAssets', label: '현재 금융자산', unit: '만 원' },
-  { key: 'monthlySpending', label: '월 생활비', unit: '만 원/월' },
+  { key: 'financialAssets', label: '현재 금융자산', unit: '만 원', money: true },
+  { key: 'monthlySpending', label: '월 생활비', unit: '만 원/월', money: true },
 ]
 
 function toRaw(input: V0Input): RawInput {
@@ -74,7 +75,11 @@ export default function App() {
                 />
                 <span className="unit">{f.unit}</span>
               </span>
-              {errors[f.key] && <span className="error">{errors[f.key]}</span>}
+              {errors[f.key] ? (
+                <span className="error">{errors[f.key]}</span>
+              ) : (
+                f.money && <span className="hint">{formatKorean(Number(raw[f.key]))}</span>
+              )}
             </label>
           ))}
         </form>
