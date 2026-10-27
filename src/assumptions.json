@@ -1,0 +1,4 @@
+{
+  "realReturn": { "value": 0.02, "unit": "ratio", "source": "임시", "asOf": "2026-10" },
+  "targetAge": { "value": 100, "unit": "age", "source": "기능명세 v0", "asOf": "2026-10" }
+}
