@@ -61,6 +61,8 @@ npm run typecheck
 
 - 계산 엔진: `src/engine/simulate.ts` (순수 함수, MVP에서 `packages/engine`으로 이동)
 - 가정값: `src/assumptions.json` (실질수익률 2%는 임시값)
+- 스타일: `src/index.css`에 디자인 토큰, 컴포넌트별 `*.module.css` (CSS Modules)
+- 배포: `main`에 push하면 GitHub Actions가 테스트·빌드 후 GitHub Pages에 올림 (`.github/workflows/deploy.yml`)
 
 ## 개발 (예정)
 
