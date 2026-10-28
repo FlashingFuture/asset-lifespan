@@ -1,0 +1,13 @@
+.chart {
+  margin: 0;
+  padding: var(--space-4) var(--space-2) var(--space-2);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.caption {
+  padding: 0 var(--space-2);
+  font-size: var(--font-caption);
+  color: var(--color-text-muted);
+}

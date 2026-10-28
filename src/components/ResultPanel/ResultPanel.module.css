@@ -1,0 +1,25 @@
+.panel {
+  display: grid;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.headlineCard {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-6) var(--space-4);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius);
+}
+
+.eyebrow {
+  font-size: var(--font-caption);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.headline {
+  font-size: var(--font-headline);
+  font-weight: 700;
+  line-height: 1.3;
+}

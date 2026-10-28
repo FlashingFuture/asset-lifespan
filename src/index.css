@@ -1,133 +1,61 @@
+/* 전역: 디자인 토큰 + 기본 스타일. 컴포넌트 스타일은 각 폴더의 *.module.css */
+
+:root {
+  /* 색: 연한 파랑 · 흰색 · 검정 */
+  --color-bg: #ffffff;
+  --color-surface: #f2f7fd;
+  --color-primary-soft: #dcebfa;
+  --color-primary: #2f6fbf;
+  --color-border: #c9dbf0;
+  --color-text: #111111;
+  --color-text-muted: #4a5563;
+  --color-danger: #c62828;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius: 8px;
+  --font-family: system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-body: 18px;
+  --font-small: 16px;
+  --font-caption: 14px;
+  --font-headline: 28px;
+  --content-width: 1100px;
+  --touch-target: 44px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  font-size: 18px;
-  color: #1a1a1a;
-  background: #fafafa;
+  font-family: var(--font-family);
+  font-size: var(--font-body);
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
 }
 
-.page {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 16px;
-}
-
-.inputs {
-  display: grid;
-  gap: 12px;
-}
-
-.field {
-  display: grid;
-  gap: 4px;
-}
-
-.control {
+#root {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.control input {
-  flex: 1;
-  min-width: 0;
-  min-height: 44px;
-  padding: 0 12px;
-  font-size: 18px;
-  border: 1px solid #bbb;
-  border-radius: 6px;
-}
-
-.unit {
-  min-width: 5.5em;
-  color: #555;
-}
-
-.headline {
-  font-size: 28px;
-  font-weight: 700;
-}
-
-.notice {
-  color: #555;
-  font-size: 16px;
-}
-
-.control input[aria-invalid] {
-  border-color: #c62828;
-}
-
-.error {
-  color: #c62828;
-  font-size: 16px;
-}
-
-.chart {
+h1,
+h2,
+p {
   margin: 0;
 }
 
-.chart figcaption {
-  color: #555;
-  font-size: 16px;
-}
-
-.layout {
-  display: grid;
-  gap: 24px;
-}
-
-.result {
-  min-width: 0;
-}
-
-@media (min-width: 1024px) {
-  .layout {
-    grid-template-columns: 340px 1fr;
-    align-items: start;
-  }
-}
-
-.years summary {
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.table-wrap {
-  overflow-x: auto;
-}
-
-.years table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 16px;
-  font-variant-numeric: tabular-nums;
-}
-
-.years th,
-.years td {
-  padding: 6px 8px;
-  text-align: right;
-  border-bottom: 1px solid #e5e5e5;
-  white-space: nowrap;
-}
-
-.years th:first-child,
-.years td:first-child {
-  text-align: left;
-}
-
-.negative {
-  color: #c62828;
-}
-
-.unit-note {
-  color: #555;
-  font-size: 14px;
-}
-
-.hint {
-  color: #555;
-  font-size: 16px;
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }

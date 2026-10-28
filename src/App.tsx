@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import styles from './App.module.css'
 import assumptionsFile from './assumptions.json'
-import { BalanceChart } from './BalanceChart'
-import { formatKorean } from './format'
+import { Footer } from './components/Footer/Footer'
+import { Header } from './components/Header/Header'
+import { InputForm } from './components/InputForm/InputForm'
+import { ResultPanel } from './components/ResultPanel/ResultPanel'
 import { simulate, type Assumptions, type V0Input } from './engine/simulate'
 import { validate, type RawInput } from './validate'
-import { YearTable } from './YearTable'
 
 const assumptions: Assumptions = {
   realReturn: assumptionsFile.realReturn.value,
@@ -21,26 +23,8 @@ const defaultInput: V0Input = {
   monthlySpending: 300,
 }
 
-type Field = { key: keyof V0Input; label: string; unit: string; money?: boolean }
-
-const fields: Field[] = [
-  { key: 'currentAge', label: '현재 나이', unit: '세' },
-  { key: 'retireAge', label: '퇴직 나이', unit: '세' },
-  { key: 'monthlyIncome', label: '퇴직 전 월소득(세후)', unit: '만 원/월', money: true },
-  { key: 'monthlyPension', label: '국민연금 월액', unit: '만 원/월', money: true },
-  { key: 'pensionStartAge', label: '국민연금 수령 시작 나이', unit: '세' },
-  { key: 'financialAssets', label: '현재 금융자산', unit: '만 원', money: true },
-  { key: 'monthlySpending', label: '월 생활비', unit: '만 원/월', money: true },
-]
-
 function toRaw(input: V0Input): RawInput {
   return Object.fromEntries(Object.entries(input).map(([k, v]) => [k, String(v)])) as RawInput
-}
-
-function headline(depletionAge: number | null, currentAge: number) {
-  if (depletionAge === null) return `${assumptions.targetAge}세 이후까지 버틸 수 있어요`
-  if (depletionAge === currentAge) return `지금 계획으로는 ${depletionAge}세부터 부족해요`
-  return `지금 계획이면 ${depletionAge}세까지 버틸 수 있어요`
 }
 
 export default function App() {
@@ -58,42 +42,20 @@ export default function App() {
   }
 
   return (
-    <main className="page">
-      <h1>자산수명 시뮬레이터</h1>
-      <div className="layout">
-        <form className="inputs" onSubmit={(e) => e.preventDefault()}>
-          {fields.map((f) => (
-            <label key={f.key} className="field">
-              <span>{f.label}</span>
-              <span className="control">
-                <input
-                  type="number"
-                  inputMode="numeric"
-                  value={raw[f.key]}
-                  aria-invalid={errors[f.key] ? true : undefined}
-                  onChange={(e) => onChange(f.key, e.target.value)}
-                />
-                <span className="unit">{f.unit}</span>
-              </span>
-              {errors[f.key] ? (
-                <span className="error">{errors[f.key]}</span>
-              ) : (
-                f.money && <span className="hint">{formatKorean(Number(raw[f.key]))}</span>
-              )}
-            </label>
-          ))}
-        </form>
-
-        <section className="result">
-          <p className="headline">{headline(result.depletionAge, input.currentAge)}</p>
-          <BalanceChart rows={result.rows} retireAge={input.retireAge} depletionAge={result.depletionAge} />
-          <YearTable rows={result.rows} />
-          <p className="notice">
-            실질수익률 {assumptions.realReturn * 100}% 가정, 프로토타입 계산이에요. 투자 권유나 공식 연금 예상액이
-            아니에요.
-          </p>
-        </section>
-      </div>
-    </main>
+    <>
+      <Header />
+      <main className={styles.main}>
+        <div className={styles.layout}>
+          <InputForm raw={raw} errors={errors} onChange={onChange} />
+          <ResultPanel
+            result={result}
+            currentAge={input.currentAge}
+            retireAge={input.retireAge}
+            targetAge={assumptions.targetAge}
+          />
+        </div>
+      </main>
+      <Footer realReturn={assumptions.realReturn} asOf={assumptionsFile.realReturn.asOf} />
+    </>
   )
 }

@@ -1,0 +1,19 @@
+.footer {
+  margin-top: var(--space-8);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-2);
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+  font-size: var(--font-caption);
+  color: var(--color-text-muted);
+}
+
+.meta {
+  color: var(--color-text);
+}
